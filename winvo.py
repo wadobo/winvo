@@ -68,6 +68,7 @@ def genPDF(output, config):
     # Jumps for multiple lines fields
     address = address.replace('\n', '<br/>')
     to = to.replace('\n', '<br/>')
+    payment = payment.replace('\n', '<br/>')
 
     locale.setlocale(locale.LC_ALL, local)
 
