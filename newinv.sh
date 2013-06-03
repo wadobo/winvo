@@ -3,7 +3,7 @@
 # Sets the winvo invoices directory
 INVOICES_DIR="./invoices"
 
-# default configuration file
+# default client configuration file
 SKEL_FILE="./example.conf"
 
 [ -f custom_config.sh ] && source custom_config.sh
@@ -16,16 +16,21 @@ SKEL_FILE="./example.conf"
 # show usage if it's not provided
 if [ $# -lt 1 ]
 then
-    echo "usage: $0 invoicename"
+    echo "usage: $0 invoicename [client_conf]"
     exit 1
 fi
 
 # try to find the previous configuration file with the same invoice name
 previous="$(find "${INVOICES_DIR}" | grep "^\\./20.*/$1.*conf$" | head -1)"
 
-if [ "$previous" ]
+if [ "$2" ]
 then
-    SKEL_FILE="$previous"
+    SKEL_FILE="$2"
+else
+    if [ "$previous" ]
+    then
+        SKEL_FILE="$previous"
+    fi
 fi
 
 invname=$1
