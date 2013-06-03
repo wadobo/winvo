@@ -21,8 +21,8 @@ We have created a handy script to create new invoices, newinv.sh:
 This command will create a directory and file structure that we have found
 useful to us to handle our invoices: the invoices of each month are grouped
 inside one directory, then for each invoice there is a subdirectory with
-the name "client.<invoice no>" which contains the source configuration file
-"client.<invoice no>.conf" and the pdf when you generate it.
+the name "client.\<invoice number\>" which contains the source configuration file
+"client.\<invoice number\>.conf" and the pdf when you generate it.
 
 To generate the pdf, invoke the command as explained in the script:
 
