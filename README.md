@@ -50,6 +50,11 @@ file in $INVOICES_DIR/n will be created with the number "2", indicating
 the number for the next invoice. You can modify this file content to
 start generating invoices from any invoice number you need.
 
+It's also worth noting that the first time the config file will be a
+copy of the default.conf file, but if the script finds a previous
+invoice with the same invoicename, it will use it as the source config
+file.
+
 ## WInvo file format
 
 Each invoice is a .conf file with the invoice information like:
