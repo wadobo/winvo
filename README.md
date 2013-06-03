@@ -43,7 +43,7 @@ editing a custom_config.sh file like this:
    #!/bin/bash
 
    export INVOICES_DIR="./invoices2"
-```                                   
+```
 
 By default, the first invoice will be assigned the invoice no. 1. A
 file in $INVOICES_DIR/n will be created with the number "2", indicating
@@ -65,9 +65,9 @@ Each invoice is a .conf file with the invoice information like:
     lang: es
     number: 1
 
-    to: Fake Company Name S.L.<br/>
-        CIF: XXXXXXXXX<br/>
-        Fake address<br/>
+    to: Fake Company Name S.L.
+        CIF: XXXXXXXXX
+        Fake address
         41010, Sevilla, España
 
     currency: Euro
@@ -94,15 +94,15 @@ A default.conf file is used to fill common fields like address and so:
     logo: imgs/wadobo.png
 
     # Your company legal information
-    address: No es magia es Wadobo S.L.L.<br/>
-        CIF: B90032236<br/>
-        C/Arqueros nº 4, Local<br/>
-        41011, Sevilla, España<br/>
+    address: No es magia es Wadobo S.L.L.
+        CIF: B90032236
+        C/Arqueros nº 4, Local
+        41011, Sevilla, España
         info@wadobo.com
 
     # this will be added to the invoice at the bottom
-    payment: Forma de pago: Transferencia bancaria<br/>
-        Número de cuenta corriente: XXXX XXXX XX XXXXXXXXXX<br/>
+    payment: Forma de pago: Transferencia bancaria
+        Número de cuenta corriente: XXXX XXXX XX XXXXXXXXXX
         Entidad: Bank
 
     # now or a date string like 'April 3th 2013'
