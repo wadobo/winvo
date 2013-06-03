@@ -65,6 +65,10 @@ def genPDF(output, config):
     currency = config.get('General', 'currency')
     lang = config.get('General', 'lang')
 
+    # Jumps for multiple lines fields
+    address = address.replace('\n', '<br/>')
+    to = to.replace('\n', '<br/>')
+
     locale.setlocale(locale.LC_ALL, local)
 
     x = gettext.translation('winvo', 'mo', languages=[lang])
