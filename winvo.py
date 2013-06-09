@@ -55,6 +55,7 @@ def genPDF(output, config):
     address = config.get('General', 'address')
     date = config.get('General', 'date')
     dateformat = config.get('General', 'dateformat')
+    expiry_date = int(config.get('General', 'expiry_date'))
     local = config.get('General', 'locale')
     to = config.get('General', 'to')
     number = config.get('General', 'number')
@@ -97,6 +98,11 @@ def genPDF(output, config):
     if date == 'now':
         d = datetime.datetime.now()
         date = d.strftime(dateformat)
+    if expiry_date:
+        expiry_date = d + datetime.timedelta(days=expiry_date)
+        expiry_date = expiry_date.strftime(dateformat)
+        expiry_date = ': '.join(['Expiration date', expiry_date])
+        expiry_date = Paragraph(expiry_date, styleR)
     date = Paragraph(date, styleR)
     to = Paragraph(to, styleL)
     number = Paragraph(_('Invoice n. %s') % number, styleL)
@@ -130,11 +136,11 @@ def genPDF(output, config):
     tstyle = TableStyle(tstyle_list)
     data = []
     if type == 'total':
-        head = [_('Activity'), _('Ammount (%s)') % currency]
+        head = [_('Activity'), _('Amount (%s)') % currency]
         colwidths = ['*', 3.2*cm]
     else:
         head = [_('Activity'), _('Rate/Hour'),
-                _('Count'), _('Ammount (%s)') % currency]
+                _('Count'), _('Amount (%s)') % currency]
         colwidths = ['*', 2*cm, 2*cm, 3.2*cm]
     data.append(head)
 
@@ -203,6 +209,8 @@ def genPDF(output, config):
     elements.append(address)
     elements.append(Spacer(5*cm, 0.4*cm))
     elements.append(date)
+    if expiry_date:
+        elements.append(expiry_date)
     elements.append(Spacer(5*cm, 1.5*cm))
     elements.append(to)
     elements.append(Spacer(5*cm, 1.5*cm))
