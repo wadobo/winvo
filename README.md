@@ -108,6 +108,7 @@ A default.conf file is used to fill common fields like address and so:
     # now or a date string like 'April 3th 2013'
     date: now
     dateformat: %d de %B de %Y
+    expiry_date: 30  # or 0 If you don't want it
     locale: es_ES.UTF-8
 
     # type can be hours|total
