@@ -101,7 +101,7 @@ def genPDF(output, config):
     if expiry_date:
         expiry_date = d + datetime.timedelta(days=expiry_date)
         expiry_date = expiry_date.strftime(dateformat)
-        expiry_date = ': '.join(['Expiration date', expiry_date])
+        expiry_date = ': '.join([_('Expiration date'), expiry_date])
         expiry_date = Paragraph(expiry_date, styleR)
     date = Paragraph(date, styleR)
     to = Paragraph(to, styleL)

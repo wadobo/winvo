@@ -1,28 +1,28 @@
-# Spanish translations for PACKAGE package.
-# Copyright (C) 2013 THE PACKAGE'S COPYRIGHT HOLDER
-# This file is distributed under the same license as the PACKAGE package.
-# danigm <danigm@rincewind>, 2013.
+# Winvo spanish translations.
+# Copyright (C) 2013
+# This file is distributed under the same license as the winvo package.
+# Daniel Garcia <danigm@wadobo.com>, 2013.
 #
+#, fuzzy
 msgid ""
 msgstr ""
 "Project-Id-Version: 0.1\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2013-05-30 23:52+0200\n"
-"PO-Revision-Date: 2013-05-30 23:52+0200\n"
-"Last-Translator: danigm <danigm@wadobo.com>\n"
+"POT-Creation-Date: 2013-06-10 10:53+0200\n"
+"PO-Revision-Date: 2013-06-10 10:53+0200\n"
+"Last-Translator: Daniel Garcia <danigm@wadobo.com>\n"
 "Language-Team: Spanish\n"
 "Language: es\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"Plural-Forms: nplurals=2; plural=(n != 1);\n"
 
-#: winvo.py:88
+#: winvo.py:88 winvo.py:108
 #, python-format
 msgid "Invoice n. %s"
 msgstr "Factura no. %s"
 
-#: winvo.py:117 winvo.py:120
+#: winvo.py:117 winvo.py:120 winvo.py:139 winvo.py:142
 msgid "Activity"
 msgstr "Actividad"
 
@@ -31,18 +31,27 @@ msgstr "Actividad"
 msgid "Ammount (%s)"
 msgstr "Cantidad (%s)"
 
-#: winvo.py:120
+#: winvo.py:120 winvo.py:142
 msgid "Rate/Hour"
 msgstr "Precio/Hora"
 
-#: winvo.py:120
+#: winvo.py:120 winvo.py:143
 msgid "Count"
 msgstr "Número"
 
-#: winvo.py:149
+#: winvo.py:149 winvo.py:172
 msgid "Subtotal"
 msgstr "Subtotal"
 
-#: winvo.py:174
+#: winvo.py:174 winvo.py:197
 msgid "Total"
 msgstr "Total"
+
+#: winvo.py:104
+msgid "Expiration date"
+msgstr "Fecha de vencimiento"
+
+#: winvo.py:139 winvo.py:143
+#, python-format
+msgid "Amount (%s)"
+msgstr "Cantidad (%s)"
