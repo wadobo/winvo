@@ -146,7 +146,8 @@ def genPDF(output, config):
 
     subtotal = 0
     for section in [i for i in config.sections() if i.startswith('Fee')]:
-        element = [Paragraph(config.get(section, 'summary'), styleL)]
+        summary = config.get(section, 'summary').replace('\n', '<br/>')
+        element = [Paragraph(summary, styleL)]
         if type == 'total':
             fee = config.get(section, 'fee')
             subtotal += float(fee)
