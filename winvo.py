@@ -58,7 +58,10 @@ def genPDF(output, config):
     expiry_date = int(config.get('General', 'expiry_date'))
     local = config.get('General', 'locale')
     to = config.get('General', 'to')
-    number = config.get('General', 'number')
+    try:
+        number = config.get('General', 'number')
+    except:
+        number = ''
     project = config.get('General', 'project')
     payment = config.get('General', 'payment')
     tax = int(config.get('General', 'tax'))
@@ -105,7 +108,10 @@ def genPDF(output, config):
         expiry_date = Paragraph(expiry_date, styleR)
     date = Paragraph(date, styleR)
     to = Paragraph(to, styleL)
-    number = Paragraph(_('Invoice n. %s') % number, styleL)
+    if number:
+        number = Paragraph(_('Invoice n. %s') % number, styleL)
+    else:
+        number = Paragraph('', styleL)
     project = Paragraph(u'<b>%s</b>' % project, styleC)
     payment = Paragraph(payment, styleL)
 
