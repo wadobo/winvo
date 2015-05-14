@@ -62,7 +62,7 @@ def genPDF(output, config):
         number = config.get('General', 'number')
     except:
         number = ''
-    project = config.get('General', 'project')
+    project = config.get('General', 'project').decode('utf8')
     payment = config.get('General', 'payment')
     tax = int(config.get('General', 'tax'))
     taxname = config.get('General', 'taxname')
