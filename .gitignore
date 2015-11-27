@@ -3,3 +3,4 @@ custom_config.sh
 messages.po
 *.pdf
 *.swp
+*.pyc
