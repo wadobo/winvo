@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: 0.1\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2013-06-10 10:53+0200\n"
+"POT-Creation-Date: 2018-05-21 10:53+0200\n"
 "PO-Revision-Date: 2013-06-10 10:53+0200\n"
 "Last-Translator: Daniel Garcia <danigm@wadobo.com>\n"
 "Language-Team: Spanish\n"
@@ -17,41 +17,43 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 
-#: winvo.py:88 winvo.py:108
+#: winvo.py:158
+msgid "Expiration date"
+msgstr "Fecha de vencimiento"
+
+#: winvo.py:163
 #, python-format
 msgid "Invoice n. %s"
 msgstr "Factura no. %s"
 
-#: winvo.py:117 winvo.py:120 winvo.py:139 winvo.py:142
+#: winvo.py:165
+msgid "Proforma invoice"
+msgstr "Factura proforma"
+
+#: winvo.py:196 winvo.py:199
 msgid "Activity"
 msgstr "Actividad"
 
-#: winvo.py:117 winvo.py:120
-#, python-format
-msgid "Ammount (%s)"
-msgstr "Cantidad (%s)"
-
-#: winvo.py:120 winvo.py:142
-msgid "Rate/Hour"
-msgstr "Precio/Hora"
-
-#: winvo.py:120 winvo.py:143
-msgid "Count"
-msgstr "Número"
-
-#: winvo.py:149 winvo.py:172
-msgid "Subtotal"
-msgstr "Subtotal"
-
-#: winvo.py:174 winvo.py:197
-msgid "Total"
-msgstr "Total"
-
-#: winvo.py:104
-msgid "Expiration date"
-msgstr "Fecha de vencimiento"
-
-#: winvo.py:139 winvo.py:143
+#: winvo.py:196 winvo.py:200
 #, python-format
 msgid "Amount (%s)"
 msgstr "Cantidad (%s)"
+
+#: winvo.py:199
+msgid "Rate/Hour"
+msgstr "Precio/Hora"
+
+#: winvo.py:200
+msgid "Count"
+msgstr "Número"
+
+#: winvo.py:230
+msgid "Subtotal"
+msgstr "Subtotal"
+
+#: winvo.py:255
+msgid "Total"
+msgstr "Total"
+
+#~ msgid "Ammount (%s)"
+#~ msgstr "Cantidad (%s)"
