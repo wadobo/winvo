@@ -50,7 +50,7 @@ cp "$SKEL_FILE" "$filename"
 sed -i "s/^number: .*/number: $ny\/$nn/" $filename
 
 # update the next invoice no
-if [ $2 != "--pro" ]
+if [ "$2" != "--pro" ]
 then
     (( num++ ))
     printf "%s/%03d\n" $ny $num > "${INVOICES_DIR}/n"
