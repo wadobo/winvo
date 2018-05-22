@@ -16,6 +16,8 @@
 # along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 
+import os
+import re
 import sys
 import locale
 import datetime
@@ -47,6 +49,55 @@ def get_image(path, width=3*cm):
     iw, ih = img.getSize()
     aspect = ih / float(iw)
     return Image(path, width=width, height=(width * aspect))
+
+
+def genCSV(config, fname):
+    type = config.get('General', 'type')
+    img = config.get('General', 'logo')
+    address = config.get('General', 'address')
+    date = config.get('General', 'date')
+    dateformat = config.get('General', 'dateformat')
+    expiry_date = int(config.get('General', 'expiry_date'))
+    local = config.get('General', 'locale')
+    to = config.get('General', 'to')
+    try:
+        number = config.get('General', 'number')
+    except:
+        number = ''
+    project = config.get('General', 'project').decode('utf8')
+    payment = config.get('General', 'payment')
+    tax = int(config.get('General', 'tax'))
+    taxname = config.get('General', 'taxname')
+    currency = config.get('General', 'currency')
+    lang = config.get('General', 'lang')
+
+    # Jumps for multiple lines fields
+    address = address
+    to = to
+    payment = payment
+
+    locale.setlocale(locale.LC_ALL, local)
+
+    x = gettext.translation('winvo', 'mo', languages=[lang])
+    _ = x.gettext
+
+    subtotal = 0
+    for section in [i for i in config.sections() if i.startswith('Fee')]:
+        summary = config.get(section, 'summary')
+        if type == 'total':
+            fee = config.get(section, 'fee')
+            subtotal += float(fee)
+        else:
+            fee = config.get(section, 'fee')
+            hours = config.get(section, 'hours')
+            total = float(fee) * float(hours)
+            subtotal += float(total)
+    # Taxes
+    if tax:
+        tax = subtotal * (tax / 100.0)
+    # total
+    total = subtotal + tax
+    print("%s,%s,%s,%s,%s" % (fname, project, subtotal, tax, total))
 
 
 def genPDF(output, config):
@@ -111,7 +162,7 @@ def genPDF(output, config):
     if number:
         number = Paragraph(_('Invoice n. %s') % number, styleL)
     else:
-        number = Paragraph('', styleL)
+        number = Paragraph(_('Proforma invoice'), styleL)
     project = Paragraph(u'<b>%s</b>' % project, styleC)
     payment = Paragraph(payment, styleL)
 
@@ -241,6 +292,16 @@ def read_config(conf):
 def interactive():
     print "NOT IMPLEMENTED YET"
 
+
+def genYearCSV(year):
+    rex = re.compile('^./(?P<f>\d+/)'+str(year)+'\d\d/(?P<n>.*)$')
+    for d, dn, fn in os.walk('.'):
+        match = rex.match(d)
+        if match:
+            fname = match.group('n')
+            f = os.path.join(d, fname + '.conf')
+            config = read_config(f)
+            genCSV(config, fname)
 
 def main():
     parser = argparse.ArgumentParser(description='Generates invoices')

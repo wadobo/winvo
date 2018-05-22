@@ -16,36 +16,43 @@ SKEL_FILE="./example.conf"
 # show usage if it's not provided
 if [ $# -lt 1 ]
 then
-    echo "usage: $0 invoicename [client_conf]"
-    exit 1
+    echo "usage: $0 [invoicename] [OPTION]"
+    printf "Options:\n --pro\t Generate proforma invoice, n not increment."
+    exit
 fi
 
 # try to find the previous configuration file with the same invoice name
-previous="$(find "${INVOICES_DIR}" | grep "^\\./20.*/$1.*conf$" | head -1)"
+previous="$(find "${INVOICES_DIR}" | grep "^\\./20.*/$1.*conf$" | tail -1)"
 
-if [ "$2" ]
+if [ $previous ]
 then
-    SKEL_FILE="$2"
-else
-    if [ "$previous" ]
-    then
-        SKEL_FILE="$previous"
-    fi
+    SKEL_FILE=$previous
 fi
 
 invname=$1
 nf=$(cat "${INVOICES_DIR}/n")
 
+fname=$1.$(echo $nf|sed 's/\//./')
+echo $fname
+
 # create this invoice's directory
-folder="${INVOICES_DIR}/$(date +%Y%m)/$1.$nf"
+folder="${INVOICES_DIR}/$(date +%Y%m)/$fname"
 mkdir -p "$folder"
 
 # create this invoice's conf file, with the given invoice no
-filename="$folder/$1.$nf.conf"
+filename="$folder/$fname.conf"
+
+ny=$(echo $nf | cut -d"/" -f1)
+nn=$(echo $nf | cut -d"/" -f2)
+num=$(echo $nn | sed 's/^0*//g')
+
 cp "$SKEL_FILE" "$filename"
-sed -i "s/number: .*/number: $nf/" "$filename"
+sed -i "s/^number: .*/number: $ny\/$nn/" $filename
 
 # update the next invoice no
-(( nf++ ))
-echo $nf > "${INVOICES_DIR}/n"
+if [ $2 != "--pro" ]
+then
+    (( num++ ))
+    printf "%s/%03d\n" $ny $num > "${INVOICES_DIR}/n"
+fi
 echo "DONE, edit the file ${filename} and type ./winvo.py ${filename} to generate the pdf in place"

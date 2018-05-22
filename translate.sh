@@ -1,5 +1,7 @@
 #!/bin/bash
 
-msgfmt locales/$1/$1.po -o winvo.mo
-mkdir -p mo/$1/LC_MESSAGES
-mv winvo.mo mo/$1/LC_MESSAGES
+for LANG in 'en' 'es'; do
+    msgfmt locales/$LANG/$LANG.po -o winvo.mo
+    mkdir -p mo/$LANG/LC_MESSAGES
+    mv winvo.mo mo/$LANG/LC_MESSAGES
+done
