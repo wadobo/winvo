@@ -36,8 +36,14 @@ fname=$1.$(echo $nf|sed 's/\//./')
 echo $fname
 
 # create this invoice's directory
-folder="${INVOICES_DIR}/$(date +%Y%m)/$fname"
-mkdir -p "$folder"
+if [ "$2" != "--pro" ]
+then
+    folder="${INVOICES_DIR}/$(date +%Y%m)/$fname"
+    mkdir -p "$folder"
+else
+    folder="${INVOICES_DIR}/pro.$(date +%Y%m)/$fname"
+    mkdir -p "$folder"
+fi
 
 # create this invoice's conf file, with the given invoice no
 filename="$folder/$fname.conf"
