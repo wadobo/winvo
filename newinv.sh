@@ -22,7 +22,7 @@ then
 fi
 
 # try to find the previous configuration file with the same invoice name
-previous="$(find "${INVOICES_DIR}" | grep "^\\./20.*/$1.*conf$" | tail -1)"
+previous="$(find "${INVOICES_DIR}" | grep "^\\./20.*/$1.*conf$" | sort | tail -1)"
 
 if [ $previous ]
 then
