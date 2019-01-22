@@ -68,6 +68,8 @@ def genCSV(config, fname):
     payment = config.get('General', 'payment')
     tax = int(config.get('General', 'tax'))
     taxname = config.get('General', 'taxname')
+    reverse_tax = int(config.get('General', 'reverse_tax'))
+    reverse_taxname = config.get('General', 'reverse_taxname')
     currency = config.get('General', 'currency')
     lang = config.get('General', 'lang')
 
@@ -95,9 +97,12 @@ def genCSV(config, fname):
     # Taxes
     if tax:
         tax = subtotal * (tax / 100.0)
+
+    if reverse_tax:
+        reverse_tax = - subtotal * (reverse_tax / 100.0)
     # total
-    total = subtotal + tax
-    print("%s,%s,%s,%s,%s" % (fname, project, subtotal, tax, total))
+    total = subtotal + tax + reverse_tax
+    print("%s,%s,%s,%s,%s,%s" % (fname, project, subtotal, tax, reverse_tax, total))
 
 
 def genPDF(output, config):
@@ -117,6 +122,8 @@ def genPDF(output, config):
     payment = config.get('General', 'payment')
     tax = int(config.get('General', 'tax'))
     taxname = config.get('General', 'taxname')
+    reverse_tax = int(config.get('General', 'reverse_tax'))
+    reverse_taxname = config.get('General', 'reverse_taxname')
     currency = config.get('General', 'currency')
     lang = config.get('General', 'lang')
 
@@ -167,6 +174,10 @@ def genPDF(output, config):
     payment = Paragraph(payment, styleL)
 
     N = -4 if tax else -3
+    RN = N * 1
+    if reverse_tax:
+        RN = N * 1
+        N -= 1
 
     # invoice Table
     tstyle_list = [
@@ -179,7 +190,10 @@ def genPDF(output, config):
         ('BACKGROUND', (0, 0), (-1, 0), colors.Color(0.85, 0.85, 0.85)),
         ('SPAN', (0, N), (-1, N)),
         ('LINEBELOW', (0, N + 1), (-1, N + 1), 0.25, colors.black),
+        ('LINEBELOW', (0, RN + 2), (-1, RN + 2), 0.25, colors.black),
         ('LINEBELOW', (0, N + 2), (-1, N + 2), 0.25, colors.black),
+        ('BACKGROUND', (0, RN + 1), (-1, RN + 2),
+         colors.Color(1.00, 0.80, 0.80)),
         ('BACKGROUND', (0, N + 1), (-1, N + 2),
          colors.Color(0.80, 1.00, 0.80)),
         ('BACKGROUND', (0, -1), (-1, -1),
@@ -249,8 +263,22 @@ def genPDF(output, config):
             element.append(Paragraph('%5.2f' % tax, styleR))
         data.append(element)
 
+    # Reverse taxes
+    if reverse_tax:
+        element = []
+        reverse_tax = - subtotal * (reverse_tax / 100.0)
+        element.append(Paragraph(reverse_taxname, styleL))
+        if type == 'total':
+            element.append(Paragraph('%5.2f' % reverse_tax, styleR))
+        else:
+            element.append("")
+            element.append("")
+            element.append(Paragraph('%5.2f' % reverse_tax, styleR))
+        data.append(element)
+
+
     # total
-    total = subtotal + tax
+    total = subtotal + tax + reverse_tax
     element = []
     element.append(Paragraph(_('Total'), styleL))
     if type == 'total':
